@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FireBase Train Station</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<!-- Linking jQuery -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<!-- Linking Google Fonts -->
+	<link href='https://fonts.googleapis.com/css?family=Montserrat|Roboto+Slab|Yellowtail' rel='stylesheet' type='text/css'>
+	<!-- Linking CSS -->
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<!-- Firebase Reference -->
+	<script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+	<!-- Moment.js Reference -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+</head>
+<body background="trainstation.png">
+
+<div class="panel panel-primary">		
+		<div class="panel-heading text-center"><h3>Firebase Train Schedule ~ Add Trains ~ ALL in Real Time!</h3></div>
+	</div>  
+<div class="container">
+	<!-- <div class="jumbotron bg-primary text-center"><h1>FireBase Train Station</h1></div> -->
+	
+	<div class="row">
+		<div class="col-md-2"> <!-- col1 small -->
+			<div class="panel panel-success">		
+				<div class="panel-heading"><h4>Add NEW Train</h4> </div>
+				<div class="panel-body"> 
+
+					<div class="row">  <!-- row1   -->
+						<div class="col-md-12"> <!-- col1 large   -->
+						<!-- Add Train  -->
+						<div class="card mb-4 p-4">  <!-- CARD   -->
+							<div class="card-body">	 <!-- CARD BODY  -->
+							<!-- Entry Form -->
+							<form>
+								<div class="form-group row"> <!-- form ROW 1 -->
+										<div class="col-md-12">
+										<label for="train-name">Train Name:</label>
+										<input class="form-control" id="trainName" type="text" value="MAGIC.v2">
+									</div>
+								</div>  <!-- end form ROW 1 -->
+
+								<div class="form-group row"> <!-- form ROW 2 -->
+									<div class="col-md-12">
+										<label for="destination">Destination:</label>
+										<input class="form-control" id="destination" type="text" value="Temecula">
+									</div>
+								</div>  <!-- end form ROW 2 -->
+
+								<div class="form-group row"> <!-- form ROW 3 -->
+									<div class="col-md-12">
+										<label for="first-time">First Run (hh:mm):</label>
+										<input class="form-control" id="firstTime" type="text" value="13:13">
+									</div>
+								</div> <!-- end form ROW 3 -->
+
+								<div class="form-group row"> <!-- form ROW 4 -->
+									<div class="col-md-12">
+										<label for="frequency">Frequency (mins):</label>
+										<input class="form-control" id="frequency" type="text" value="13">
+									</div>
+								</div>  <!-- end form ROW 4 -->
+		
+								<div class="form-group row"> <!-- form ROW 5 -->
+									<div class="col-md-12">
+										<button type="button" class="btn btn-outline-success" id="btnSubmit">Submit New Train</button>
+									</div>
+								</div> <!-- form ROW 5 -->
+							</form>
+							</div>  <!-- end CARD BODY  -->
+						</div>   <!-- end CARD   -->
+						</div>  <!-- end col1 large   -->
+					</div>  <!-- end row1  -->
+				</div>  <!-- end panel body  -->
+			</div>  <!-- end panel-info  -->
+		</div>  <!-- end top col  -->
+	
+		<div class="col-md-10"> <!-- col2 large -->
+			<div class="panel panel-info">		
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-md-5">
+							<h4><b>Updates Every Minute -OR- Click Refresh</b></h4>
+						</div>	
+						<div class="col-md-2">
+							<h4 id="currentTime"><b>Time Now: </b></h4>
+						</div>
+						<div class="col-md-2">
+							<button type="button" class="btn btn-outline-primary" id="btnClear">Clear Schedule</button>
+						</div>
+						<div class="col-md-3">
+							<button type="button" class="btn btn-outline-info" id="btnFireBase">Refresh FireBase Db</button>
+						</div>
+					</div> <!-- row -->	
+				
+				</div>  <!-- panel -->
+
+				<div class="panel-body"> 
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card mb-4">
+								<div class="card-body">
+									<table class="table table-sm table-hover" id="trainTable">
+										<thead>
+											<tr>
+												<th class="text-center" scope="col">Train Name</th>
+												<th class="text-center" scope="col">Destination</th>
+												<th class="text-center" scope="col">First Run</th>
+												<th class="text-center" scope="col">Frequency</th>
+												<th class="text-center" scope="col">Next Arrival</th>
+												<th class="text-center" scope="col">Minutes Away</th>
+											</tr>
+										</thead>
+										<tbody class="text-center" id="trainBody">
+
+											<tr>	
+												<td><p data-placement="top" data-toggle="tooltip" title="Edit">
+													<button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
+														<span class="glyphicon glyphicon-pencil"></span>
+													</button>
+												</p></td>
+												
+												<td><p data-placement="top" data-toggle="tooltip" title="Delete">
+													<button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" >
+														<span class="glyphicon glyphicon-trash"></span>
+													</button>
+												</p></td>
+											</tr>
+
+										</tbody>
+									</table> <!-- end table -->
+								</div> <!-- end card body -->
+							</div>	<!-- end card  -->
+						</div> <!-- end col -->
+					</div> <!-- end row -->
+				</div>  <!-- end panel body  -->
+			</div>  <!-- end panel-success -->	
+		</div> <!-- end col2 large -->	
+	</div>	<!-- end top row  -->
+	
+</div> <!-- container -->
+
+<!-- Footer -->
+<div class="footer">
+  <p><b>Edit & Delete buttons currently disabled - feature availabe on a near-future release. 'Clear' does not delete Firebase - Trains will re-appear in a minute. © BasilWebDev</b></p>
+</div>
+
+<script type="text/javascript" src="trainStation.js"></script>
+
+</body>
+</html>
