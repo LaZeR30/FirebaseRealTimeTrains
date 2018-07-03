@@ -1,0 +1,30 @@
+.jumbotron {
+	background-color: #1b9b2c ;
+	
+}
+
+.jumbotron h1 {
+	color:white;
+}
+
+p, h1, h4 {
+	font-family: 'Roboto Slab', serif;
+}
+
+p { color: yellow ; }
+
+#funText {
+	color: black;
+	font-size: 24px;
+	font-family: 'Roboto Slab', serif;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: teal;
+    color: white;
+    text-align: center;
+}
